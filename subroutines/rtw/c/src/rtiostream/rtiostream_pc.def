@@ -1,5 +1,0 @@
-EXPORTS
-rtIOStreamOpen
-rtIOStreamClose
-rtIOStreamRecv
-rtIOStreamSend
