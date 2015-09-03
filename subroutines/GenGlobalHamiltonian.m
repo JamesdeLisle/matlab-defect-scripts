@@ -1,4 +1,4 @@
-function [HamGlobal] = GenGlobalHamiltonian(NVec, tVec, BTopVec, BBotVec, ModelMode, DefectMode, DefectSign, DefectScale, ZeeDefMode)
+function [HamGlobal] = GenGlobalHamiltonian(NVec, tVec, BTopVec, BBotVec, ModelMode, DefectMode, DefectSign, DefectScale, ZeeDefMode, valVar)
 
     Nx = NVec(1);
     Ny = NVec(2);
@@ -52,7 +52,7 @@ function [HamGlobal] = GenGlobalHamiltonian(NVec, tVec, BTopVec, BBotVec, ModelM
         end
     end
     fprintf('\n');
-    
+    disp(valVar) 
     StripYWidth = ceil(Ny/4);
     StripXWidth = ceil(Nx/4);
     BFieldTopZ = BTopVec(1,1)*kron([[1,0];[0,-1]],eye(2)) + BTopVec(2,1)*kron([[0,1];[1,0]],eye(2)) + BTopVec(3,1)*kron([[0,-1i];[1i,0]],eye(2));
@@ -67,7 +67,7 @@ function [HamGlobal] = GenGlobalHamiltonian(NVec, tVec, BTopVec, BBotVec, ModelM
                         StateOut = (ctx-1)*4*Nz*Ny + (cty-1)*4*Nz + (Nz-1)*4 + ct2;
                         
                         if (ZeeDefMode == 1)
-                            if ((cty > ceil(Ny/4)) && (cty < ceil(3*Ny/4)))
+                            if ((cty > ceil(Ny/4)-valVar) && (cty < ceil(3*Ny/4)+valVar))
                                 HamGlobal(StateOut,StateIn) = HamGlobal(StateOut,StateIn) - DefectScale * BFieldTopZ(ct1,ct2);
                             else
                                 HamGlobal(StateOut,StateIn) = HamGlobal(StateOut,StateIn) + DefectScale * BFieldTopZ(ct1,ct2);
@@ -157,7 +157,7 @@ function [HamGlobal] = GenGlobalHamiltonian(NVec, tVec, BTopVec, BBotVec, ModelM
                         StateOut = (ctx-1)*4*Nz*Ny + (cty-1)*4*Nz + (1-1)*4 + ct2;
                         
                         if (ZeeDefMode == 1)
-                            if ((cty > ceil(Ny/4)) && (cty < ceil(3*Ny/4)))
+                            if ((cty > ceil(Ny/4)-valVar) && (cty < ceil(3*Ny/4)+valVar))
                                 HamGlobal(StateOut,StateIn) = HamGlobal(StateOut,StateIn) - DefectScale * BFieldTopZ(ct1,ct2);
                             else
                                 HamGlobal(StateOut,StateIn) = HamGlobal(StateOut,StateIn) + DefectScale * BFieldTopZ(ct1,ct2);

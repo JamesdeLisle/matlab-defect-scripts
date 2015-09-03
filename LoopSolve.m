@@ -1,41 +1,42 @@
 function [] = LoopSolve()
     
-    ByValZ_max = 4.0;
-    ByValZ_inc = 50;
-    NVec = [25,25,14];
+ 
+    NVec = [25,50,14];
     NumBands = 10;
-     
+
     GlobalDim = prod(NVec)*4;
 	 
-    ByValZ_vec = linspace(0.0,ByValZ_max,ByValZ_inc);
-    eSysStore = zeros(NumBands,GlobalDim+1,ByValZ_inc);
-	disp(ByValZ_vec)
-    for tik = 1:ByValZ_inc
-        ByValZ = ByValZ_vec(tik);
-        [eSys] = Solve(ByValZ,NVec,NumBands);
-        size(eSys)
+    valVar_vec = -ceil(NVec(2)/4):ceil(NVec(2)/4);
+    [m,nSteps] = size(valVar_vec)
+    eSysStore = zeros(NumBands,GlobalDim+1,nSteps);
+    disp(valVar_vec) 
+    for tik = 1:nSteps
+        valVar = valVar_vec(tik);
+        [eSys] = Solve(valVar,NVec,NumBands);
         eSysStore(:,:,tik) = eSys;
     end
     
     assignin('base','eSysStore',eSysStore);  	
-	gap = zeros(ByValZ_inc,1);
+	gap = zeros(nSteps,1);
 		
-	for tik = 1:ByValZ_inc
+	for tik = 1:nSteps
         eValsTemp = eSysStore(:,1,tik); 
         eValsTemp = abs(eValsTemp);
         gap(tik) = 2 * min(eValsTemp);
-		disp(2*min(eVallsTemp))
+		disp(2*min(eValsTemp))
 	end
 	
-	fid = fopen('zeegapdata.txt','w');
+	fid = fopen(sprintf('%dx%dx%d_gaps.txt',NVec(1),NVec(2),NVec(3)),'w');
 	
-	for tik = 1:ByValZ_inc
-		fprintf(fid,'%f %f\n',ByValZ_vec(tik),gap(tik));
+	for tik = 1:nSteps
+		fprintf(fid,'%f %f\n',valVar_vec(tik),gap(tik));
 	end
 
 	fclose(fid);
 	%}
-	
+    for tik = 1:nSteps
+	    dlmwrite(sprintf('%dx%dx%d_eSys_SEP:%d.txt',NVec(1),NVec(2),NVec(3),valVar_vec(tik)) , eSysStore(:,:,tik),'delimiter',' ');
+    end
 	
 
 end
