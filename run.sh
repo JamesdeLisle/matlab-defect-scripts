@@ -6,5 +6,6 @@ cd ~/Dropbox/work/active/defects/numerics/plots/data_files
 FOLDERNAME=$(date +"%Y-%m-%d_%H:%M")
 mkdir "$FOLDERNAME"
 cd ..
+cd ..
 mv *.txt plots/data_files/$FOLDERNAME
 
