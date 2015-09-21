@@ -17,7 +17,7 @@ function [eSys] = Solve(valVar,NVec,NumBands)
     ByZVal = 1.5;               % Zeeman field strength
     DefectScale = 1.0;			% Zeeman defect strength
     DefectSign = -1.0;          % Zeeman defect relative sign
-    ZeeDefMode = 1;
+    ZeeDefMode = 2;
     CheckHerm = 0;              % Check Hermiticity: 1 (Yes), 0 (No) 
     PrinttoFile = 0;            % Print eigensystem to file: 1 (Yes), 0 (No)
     

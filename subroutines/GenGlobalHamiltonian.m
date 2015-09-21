@@ -73,7 +73,7 @@ function [HamGlobal] = GenGlobalHamiltonian(NVec, tVec, BTopVec, BBotVec, ModelM
                                 HamGlobal(StateOut,StateIn) = HamGlobal(StateOut,StateIn) + DefectScale * BFieldTopZ(ct1,ct2);
                             end
                         elseif (ZeeDefMode == 2)
-                            if ((cty > ceil(Ny/4)) && (cty < ceil(3*Ny/4)))
+                            if ((cty > ceil(Ny/4)-valVar) && (cty < ceil(3*Ny/4)+valVar))
                                 if (ctx > ceil(Nx/4)) && (ctx < ceil(3*Nx/4))
                                     HamGlobal(StateOut,StateIn) = HamGlobal(StateOut,StateIn) - 0.99999* DefectScale * BFieldTopZ(ct1,ct2);
                                 else
@@ -163,7 +163,7 @@ function [HamGlobal] = GenGlobalHamiltonian(NVec, tVec, BTopVec, BBotVec, ModelM
                                 HamGlobal(StateOut,StateIn) = HamGlobal(StateOut,StateIn) + DefectScale * BFieldTopZ(ct1,ct2);
                             end
                         elseif (ZeeDefMode == 2)
-                            if ((cty > ceil(Ny/4)) && (cty < ceil(3*Ny/4)))
+                            if ((cty > ceil(Ny/4)-valVar) && (cty < ceil(3*Ny/4)+valVar))
                                 if (ctx > ceil(Nx/4)) && (ctx < ceil(3*Nx/4))
                                     HamGlobal(StateOut,StateIn) = HamGlobal(StateOut,StateIn) - 0.99999* DefectScale * BFieldTopZ(ct1,ct2);
                                 else

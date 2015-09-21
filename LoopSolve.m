@@ -1,7 +1,7 @@
 function [] = LoopSolve()
     
  
-    NVec = [25,50,14];
+    NVec = [50,50,8];
     NumBands = 10;
 
     GlobalDim = prod(NVec)*4;
