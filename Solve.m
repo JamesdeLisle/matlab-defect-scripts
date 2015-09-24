@@ -17,7 +17,7 @@ function [eSys] = Solve(valVar,NVec,NumBands)
     ByZVal = 1.5;               % Zeeman field strength
     DefectScale = 1.0;			% Zeeman defect strength
     DefectSign = -1.0;          % Zeeman defect relative sign
-    ZeeDefMode = 2;
+    ZeeDefMode = 1;
     CheckHerm = 0;              % Check Hermiticity: 1 (Yes), 0 (No) 
     PrinttoFile = 0;            % Print eigensystem to file: 1 (Yes), 0 (No)
     
@@ -32,8 +32,8 @@ function [eSys] = Solve(valVar,NVec,NumBands)
     
     BBotVec = zeros(3); 
     BTopVec = zeros(3);
-    BBotVec(3,1) = ByZVal;      %Z 
-    BTopVec(3,1) = ByZVal;      %Z
+    BBotVec(3,1) = valVar;      %Z 
+    BTopVec(3,1) = valVar;      %Z
     BTopVec(3,3) = 0.0;         %Y
     BBotVec(3,3) = 0.0;         %Y
     BTopVec(3,2) = 0.0;         %X
@@ -42,7 +42,7 @@ function [eSys] = Solve(valVar,NVec,NumBands)
     tic  
     disp(sprintf('Dimensions: %dx%dx%d',NVec(1),NVec(2),NVec(3)));
 	disp('Creating Hamiltonian...');
-    [Ham] = GenGlobalHamiltonian(NVec, tVec, BTopVec, BBotVec, ModelMode, DefectMode, DefectSign, DefectScale, ZeeDefMode, valVar);
+    [Ham] = GenGlobalHamiltonian(NVec, tVec, BTopVec, BBotVec, ModelMode, DefectMode, DefectSign, DefectScale, ZeeDefMode);
     CheckHermiticity(Ham, CheckHerm);
     [eSys] = ComputeEigenSystem(NVec, Ham, NumBands);
     assignin('base','eSys',eSys);

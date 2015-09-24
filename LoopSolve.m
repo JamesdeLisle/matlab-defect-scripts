@@ -1,12 +1,12 @@
 function [] = LoopSolve()
     
  
-    NVec = [50,50,8];
+    NVec = [25,50,14];
     NumBands = 10;
 
     GlobalDim = prod(NVec)*4;
 	 
-    valVar_vec = -ceil(NVec(2)/4):ceil(NVec(2)/4);
+    valVar_vec = linspace(0,1.5,100);
     [m,nSteps] = size(valVar_vec)
     eSysStore = zeros(NumBands,GlobalDim+1,nSteps);
     disp(valVar_vec) 
@@ -35,7 +35,7 @@ function [] = LoopSolve()
 	fclose(fid);
 	%}
     for tik = 1:nSteps
-	    dlmwrite(sprintf('%dx%dx%d_eSys_SEP:%d.txt',NVec(1),NVec(2),NVec(3),valVar_vec(tik)) , eSysStore(:,:,tik),'delimiter',' ');
+	    dlmwrite(sprintf('%dx%dx%d_eSys_By:%f.txt',NVec(1),NVec(2),NVec(3),valVar_vec(tik)) , eSysStore(:,:,tik),'delimiter',' ');
     end
 	
 

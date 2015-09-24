@@ -13,7 +13,7 @@ function [eSys] = ComputeEigenSystem(NVec, Ham, NumBands)
     % Solve system.
     opts.p = 20;
     [V,D] = eigs(Ham, NumBands, 0.0, opts);
-	eSys(:,:) = sortrows([diag(D)+200,V'],1);
+	eSys(:,:) = sortrows([diag(D)+2 00,V'],1);
 	eSys(:,1) = eSys(:,1)-200;
     disp('Done!');
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
